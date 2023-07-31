@@ -1,0 +1,22 @@
+июл. 31, 2023 5:53:32 PM complexNumbersCalculator.Main main
+INFO: ИСХОДНЫЙ МАССИВ: 
+июл. 31, 2023 5:58:17 PM complexNumbersCalculator.Main main
+INFO: ИСХОДНЫЙ МАССИВ: 
+июл. 31, 2023 5:58:17 PM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+июл. 31, 2023 6:06:30 PM complexNumbersCalculator.Main main
+INFO: ИСХОДНЫЙ МАССИВ: 
+июл. 31, 2023 6:06:30 PM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+июл. 31, 2023 6:08:24 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ VIEWER: 
+июл. 31, 2023 6:08:24 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ КАЛЬКУЛЯТОР КОМПЛЕКСНЫХ ЧИСЕЛ: 
+июл. 31, 2023 6:08:24 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ КОНВЕРТЕР: 
+июл. 31, 2023 6:08:24 PM complexNumbersCalculator.Main main
+INFO: ЗАПУСКАЕМ CONTROLLER: 
+июл. 31, 2023 6:08:24 PM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+июл. 31, 2023 9:21:28 PM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
