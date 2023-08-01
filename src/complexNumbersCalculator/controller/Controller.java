@@ -1,70 +1,78 @@
 package complexNumbersCalculator.controller;
 
-import complexNumbersCalculator.model.Operations;
+import complexNumbersCalculator.logging.Log;
 import complexNumbersCalculator.model.impl.ComplexNumber;
-import complexNumbersCalculator.model.impl.ComplexNumber.*;
 import complexNumbersCalculator.model.impl.ComplexOperations;
-import complexNumbersCalculator.util.Converter;
-import complexNumbersCalculator.util.Operation;
+import complexNumbersCalculator.view.Converter;
+import complexNumbersCalculator.view.Operation;
 import complexNumbersCalculator.view.Viewer;
 
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static complexNumbersCalculator.view.Operation.*;
 
 public class Controller {
     private Viewer usedViewer;
-    private ComplexOperations calculator;
-    private Converter converter;
+    private final ComplexOperations calculator = new ComplexOperations();
+//    private Converter converter;
     private final Operation operation;
+    private static final Logger CONTROLLER_LOG = Log.log(Controller.class.getName());
+    private ComplexNumber op1 = new ComplexNumber();
+    private ComplexNumber op2 = new ComplexNumber();
 
-    public Controller(Viewer usedViewer, ComplexOperations calculator, Converter converter) {
+
+    public Controller(Viewer usedViewer) {
         this.usedViewer = usedViewer;
-        this.calculator = calculator;
-        this.converter = converter;
         this.operation = null;
     }
 
-    public void run() {
-        ComplexNumber op1;
-        ComplexNumber op2;
+    public void run() throws RuntimeException {
+//        ComplexNumber op1 = new ComplexNumber();
+//        ComplexNumber op2 = new ComplexNumber();
         while (true) {
-            Operation command = converter.getOperation(usedViewer.getUserInput("Введите операцию: +/-/*/:/Q(для выхода) "));
+//            usedViewer.showPrompt("Введите первый комплексный операнд: ");
+//            try {
+//                op1 =  usedViewer.getUserNumber();
+//            } catch (Exception e) {
+//                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+//                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+//            }
+//            CONTROLLER_LOG.log(Level.INFO, String.format("Первый операнд равен " + op1 + "\n"));
+//            usedViewer.showPrompt("Введите второй комплексный операнд: ");
+//            try {
+//                op2 = usedViewer.getUserNumber();
+//            } catch (Exception e) {
+//                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+//                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+//            }
+//            CONTROLLER_LOG.log(Level.INFO, String.format("Второй операнд равен " + op2 + "\n"));
+            usedViewer.showPrompt("Введите операцию: +/-/*/:/Q(для выхода) ");
+            Operation command = usedViewer.getOperation();
             ComplexNumber res;
             switch (command) {
                 case TO_ADD:
-                    op1 = converter.parseComplexNumber(usedViewer.getUserInput("Введите первый комплексный операнд: "));
-                    op2 = converter.parseComplexNumber(usedViewer.getUserInput("Введите второй комплексный операнд: "));
-                    System.out.printf("Первый операнд равен " + op1 + "\n");
-                    System.out.printf("Второй операнд равен " + op2 + "\n");
+                    getOperands();
                     res = calculator.plus(op1, op2);
-                    usedViewer.showResult(op1, op2, converter.showOperation(Operation.TO_ADD), res);
+                    usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_SUBTRACT:
-                    op1 = converter.parseComplexNumber(usedViewer.getUserInput("Введите первый комплексный операнд: "));
-                    op2 = converter.parseComplexNumber(usedViewer.getUserInput("Введите второй комплексный операнд: "));
-                    System.out.printf("Первый операнд равен " + op1 + "\n");
-                    System.out.printf("Второй операнд равен " + op2 + "\n");
+                    getOperands();
                     res = calculator.minus(op1, op2);
-                    usedViewer.showResult(op1, op2, converter.showOperation(Operation.TO_SUBTRACT), res);
+                    usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_MULTIPLY:
-                    op1 = converter.parseComplexNumber(usedViewer.getUserInput("Введите первый комплексный операнд: "));
-                    op2 = converter.parseComplexNumber(usedViewer.getUserInput("Введите второй комплексный операнд: "));
-                    System.out.printf("Первый операнд равен " + op1 + "\n");
-                    System.out.printf("Второй операнд равен " + op2 + "\n");
+                    getOperands();
                     res = calculator.multiply(op1, op2);
-                    System.out.println(res);
-                    usedViewer.showResult(op1, op2, converter.showOperation(Operation.TO_MULTIPLY), res);
+                    usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_DIVIDE:
-                    op1 = converter.parseComplexNumber(usedViewer.getUserInput("Введите первый комплексный операнд: "));
-                    op2 = converter.parseComplexNumber(usedViewer.getUserInput("Введите второй комплексный операнд: "));
-                    System.out.printf("Первый операнд равен " + op1 + "\n");
-                    System.out.printf("Второй операнд равен " + op2 + "\n");
+                    getOperands();
                     res = calculator.divide(op1, op2);
-                    usedViewer.showResult(op1, op2, converter.showOperation(Operation.TO_DIVIDE), res);
+                    usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_BREAK:
@@ -75,20 +83,24 @@ public class Controller {
             }
         }
     }
-    public boolean getTwoOperands(ComplexNumber op1, ComplexNumber op2) {
+    private void getOperands() {
+        usedViewer.showPrompt("Введите первый комплексный операнд: ");
         try {
-            op1 = converter.parseComplexNumber(usedViewer.getUserInput("Введите 1-е комплексное число "));
-            System.out.printf("Первый операнд равен " + op1);
+            op1 =  usedViewer.getUserNumber();
         } catch (Exception e) {
-            System.err.println(e);
+            CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+            throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
         }
+        CONTROLLER_LOG.log(Level.INFO, String.format("Первый операнд равен " + op1 + "\n"));
+        usedViewer.showPrompt("Введите второй комплексный операнд: ");
         try {
-            op2 = converter.parseComplexNumber(usedViewer.getUserInput("Введите 2-е комплексное число "));
-            System.out.printf("Второй операнд равен " + op2);
+            op2 = usedViewer.getUserNumber();
         } catch (Exception e) {
-            System.err.println(e);
+            CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+            throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
         }
-        return true;
+        CONTROLLER_LOG.log(Level.INFO, String.format("Второй операнд равен " + op2 + "\n"));
     }
+
 }
 

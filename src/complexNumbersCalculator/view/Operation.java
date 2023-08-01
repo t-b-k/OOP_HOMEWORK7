@@ -1,4 +1,4 @@
-package complexNumbersCalculator.util;
+package complexNumbersCalculator.view;
 
 public enum Operation {
     TO_ADD,

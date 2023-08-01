@@ -1,11 +1,16 @@
-package complexNumbersCalculator.util;
+package complexNumbersCalculator.view;
 
+import complexNumbersCalculator.logging.Log;
 import complexNumbersCalculator.model.impl.ComplexNumber;
 
-import static complexNumbersCalculator.util.Operation.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Converter {
-    public Operation getOperation(String inputSymbol) {
+import static complexNumbersCalculator.view.Operation.*;
+
+public class Converter implements Convertarable<ComplexNumber, Operation>{
+    private static final Logger CONVERTER_LOG = Log.log(Converter.class.getName());
+    public Operation stringToOperation(String inputSymbol) {
         switch (inputSymbol) {
             case "+" : return TO_ADD;
             case "-" : return TO_SUBTRACT;
@@ -15,7 +20,7 @@ public class Converter {
             default : return NONE;
         }
     }
-    public String showOperation(Operation op) {
+    public String operationToString(Operation op) {
         switch (op) {
             case TO_ADD : return "+";
             case TO_SUBTRACT : return "-";
@@ -25,28 +30,30 @@ public class Converter {
         }
     }
 
-    public ComplexNumber parseComplexNumber(String string) throws RuntimeException {
-//        Integer realWhole = 0, imageWhole = 0;
-//        Double realFraction = 0.0, imageFraction = 0.0;
-        Double realPart = 0.0, imagePart = 0.0;
+    public ComplexNumber parseNumber(String string) throws RuntimeException {
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: parsing complex number... !!!\n");
+        double realPart = 0.0, imagePart = 0.0;
         ComplexNumber result;
-        if (string == null) throw new RuntimeException("Method parseComplexNumber: String is absent!!!");
+        if (string == null) {
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user has input NOTHING !!!\n");
+            throw new RuntimeException("RUNTIME EXCEPTION: user has input NOTHING !!!\n");
+        }
         StringBuilder temp = new StringBuilder(string.trim());
-        if (temp.isEmpty()) throw new RuntimeException("Method parseComplexNumber: String is empty!!!");
+        if (temp.isEmpty()) {
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user has input ONLY SPACES !!!\n");
+            throw new RuntimeException("RUNTIME EXCEPTION: user has input ONLY SPACES !!!\n");
+        }
         boolean negative = false;
         if (temp.charAt(0) == '-') {
-            System.out.println("Считали минус в начале и удалили его\n");
             temp.deleteCharAt(0);
             negative = true;
         }
         removeBegSpaces(temp);
-        System.out.printf("temp = %s\n", temp);
         if (nextIs_i(temp)) {
-            System.out.println("Далее идет i\n");
             if (negative) imagePart = -1.0;
             else imagePart = 1.0;
             temp.deleteCharAt(0);
-            System.out.printf("Следует ли продолжение? " + containsSecondPart(temp));
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: ...checking if there is a second part of a number... \n");
             // Проверяем, не следует ли за мнимой единицей вещественная часть
             if (containsSecondPart(temp)) {
                 if (temp.charAt(0) == '-') {
@@ -57,36 +64,39 @@ public class Converter {
                 temp.deleteCharAt(0);
                 removeBegSpaces(temp);
                 realPart = readDouble(temp);
-                if (!temp.isEmpty())
-                    throw new RuntimeException("Method parseComplexNumber: This is not a complex number!!!");
-                System.out.printf("Image Part = %f", imagePart);
-                System.out.printf("Real Part = %f", realPart);
+                CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: ...have read the second part of a number... \n");
+                if (!temp.isEmpty()){
+                    CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user input is NOT A COMPLEX NUMBER !!!\n");
+                    throw new RuntimeException("RUNTIME EXCEPTION: user input is NOT A COMPLEX NUMBER !!!\n");
+                }
                 if (negative) realPart = -realPart;
             }
             result = new ComplexNumber(realPart, imagePart);
-            System.out.printf("Число состоит из одного i со знаком: " + result + "\n");
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user number is (i) or (-i) \n");
             return (result);
         }
-        System.out.println("Дошли до readDouble");
-        System.out.println(temp);
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: trying to parse first double number ...\n");
         // Пытаемся считать первое вещественное число
         realPart = readDouble(temp);
-        System.out.printf("Real part = %f\n\n", realPart);
         if (negative) realPart = -realPart;
         removeBegSpaces(temp);
-        System.out.printf("Считали вещественную часть, осталось %s\n", temp);
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: have read the real part, continue analyzing the rest of user input...\n");
         if (nextIsAsterix(temp)) { // если за числом следует звездочка, то это мнимая часть и далее должно быть i
             temp.deleteCharAt(0);
-            // далее должна идти i
-            if (!nextIs_i(temp))
-                throw new RuntimeException("Method parseComplexNumber: This is not a complex number!!!");
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: found asterisk, removed...\n");
+            if (!nextIs_i(temp)){
+                CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: there is no \"i\" after asterisk!!!\n");
+                throw new RuntimeException("RUNTIME EXCEPTION: user input is NOT A COMPLEX NUMBER !!!\n");
+            }
         }
         if (nextIs_i(temp)) { // Значит, сначала идет мнимая часть
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: image part goes first...\n");
             temp.deleteCharAt(0);
-            System.out.println("Далее следует i");
+//            System.out.println("Далее следует i");
             imagePart = realPart;
             realPart = 0.0;
             // Проверяем, не следует ли за мнимой частью вещественная
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: ...checking if there is a second part of a number... \n");
             if (containsSecondPart(temp)) {
                 if (temp.charAt(0) == '-') {
                     negative = true;
@@ -95,15 +105,20 @@ public class Converter {
                 }
                 temp.deleteCharAt(0);
                 removeBegSpaces(temp);
+                CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: trying to parse the second double number ...\n");
                 realPart = readDouble(temp);
                 if (negative) realPart = -realPart;
-                if (!temp.isEmpty())
-                    throw new RuntimeException("Method parseComplexNumber: This is not a complex number!!!");
+                if (!temp.isEmpty()){
+                    CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user input contains illegal characters !!!\n");
+                    throw new RuntimeException("RUNTIME EXCEPTION: user input is NOT A COMPLEX NUMBER !!!\n");
+                }
             }
             return (new ComplexNumber(realPart, imagePart));
         }
-        System.out.println("Есть ли мнимая часть? " + containsSecondPart(temp));
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: real part goes first...\n");
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: is there an mage part?...\n");
         if (containsSecondPart(temp)) {
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: reading an image part...\n");
             if (temp.charAt(0) == '-') {
                 negative = true;
             } else {
@@ -111,66 +126,60 @@ public class Converter {
             }
             temp.deleteCharAt(0);
             removeBegSpaces(temp);
-            System.out.println("убрали знак мнимой части, осталось" + temp + "\n");
+//          убрали знак мнимой части, осталось" + temp + "\n");
             if (nextIs_i(temp)) {
                 imagePart = 1.0;
             } else {
+                CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: reading an image double...\n");
                 imagePart = readDouble(temp);
             }
             if (negative) imagePart = -imagePart;
-            if (!endsAsComplex(temp))
-                throw new RuntimeException("Method parseComplexNumber: This is not a complex number!!!");
+            if (!endsAsComplex(temp)) {
+                CONVERTER_LOG.log(Level.INFO, "CONVERTER.parseNumber: user input doesn't finish as a complex one !!!\n");
+                throw new RuntimeException("RUNTIME EXCEPTION: user input is NOT A COMPLEX NUMBER !!!\n");
+            }
         }
         result = new ComplexNumber(realPart, imagePart);
-        System.out.printf("Число состоит из одного i со знаком: " + result + "\n");
+//        System.out.printf("Число состоит из одного i со знаком: " + result + "\n");
         return (result);
     }
 
     private Double readDouble(StringBuilder sb) throws RuntimeException {
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.readDouble: parsing double number... !!!\n");
         Double result = 0.0;
-        Integer wholePart = 0;
+        int wholePart = 0;
         Double fractionPart = 0.0;
         removeBegSpaces(sb);
         wholePart = readInt(sb);
-        System.out.printf("Whole Part = %d", wholePart);
         if (nextIsSeparator(sb)) {
             sb.deleteCharAt(0);
             fractionPart = readFract(sb);
-            System.out.printf("Fraction Part = %f\n", fractionPart);
         }
-        return wholePart + fractionPart;
+        result = wholePart + fractionPart;
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.readDouble: have read" + result + "\n");
+        return result;
     }
     private int readInt (StringBuilder sb) throws RuntimeException {
-        System.out.println("Зашли в readInt");
-        System.out.printf("sb = %s\n", sb);
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.readInt: parsing integer number... !!!\n");
         removeBegSpaces(sb);
-        System.out.println("Убрали пробелы");
-        System.out.printf("sb = %s\n", sb);
         removeBegZeros(sb);
-        System.out.println("Убрали нули");
-        System.out.printf("sb = %s\n", sb);
         int result = 0;
         int factor = 10;
-        System.out.printf("result = %d, factor = %d, sb = %s \n", result, factor, sb);
-        if (nextIsDigit(sb)) System.out.printf("result = %d \n", Integer.parseInt(String.format("%s", sb.charAt(0))));
-        else System.out.printf("Цифр нет, есть только %c \n", sb.charAt(0));
         if (nextIsDigit(sb)) {
             while (nextIsDigit(sb)) {
-                System.out.printf("sb.charAt(0) = %c\n", sb.charAt(0));
                 result = result * factor + Integer.parseInt(String.format("%c", sb.charAt(0)));
                 sb.deleteCharAt(0);
-                System.out.printf("result = %d\n", result);
-                System.out.printf("sb = %s\n", sb);
             }
-            System.out.printf("int = %d\n", result);
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.readInt: have read" + result + "\n");
             return result;
         } else {
-            throw new RuntimeException("Method readInt: No Integer at the beginning of the string argument!!!");
+            CONVERTER_LOG.log(Level.INFO, "CONVERTER.readInt: can't parse Integer from user input !!!\n");
+            throw new RuntimeException("RUNTIME EXCEPTION: Method readInt couldn't parse Integer !!!\n");
         }
     }
     private Double readFract (StringBuilder sb) throws RuntimeException {
-        Double result = 0.0;
-        Double factor = 0.1;
+        double result = 0.0;
+        double factor = 0.1;
 
         if (nextIsDigit(sb)) {
             while (nextIsDigit(sb)) {
@@ -180,7 +189,8 @@ public class Converter {
             }
             return result;
         }
-        throw new RuntimeException("Method readInt: No Fractional part after separator!!!");
+        CONVERTER_LOG.log(Level.INFO, "CONVERTER.readFract: can't parse fractal part from user input !!!\n");
+        throw new RuntimeException("RUNTIME EXCEPTION: Method readFract couldn't parse fractal part !!!\n");
     }
     private boolean containsSecondPart (StringBuilder sb) {
         removeBegSpaces(sb);
