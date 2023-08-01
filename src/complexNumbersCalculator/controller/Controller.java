@@ -18,6 +18,8 @@ public class Controller {
 //    private Converter converter;
     private final Operation operation;
     private static final Logger CONTROLLER_LOG = Log.log(Controller.class.getName());
+    private ComplexNumber op1 = new ComplexNumber();
+    private ComplexNumber op2 = new ComplexNumber();
 
 
     public Controller(Viewer usedViewer) {
@@ -26,45 +28,49 @@ public class Controller {
     }
 
     public void run() throws RuntimeException {
-        ComplexNumber op1 = new ComplexNumber();
-        ComplexNumber op2 = new ComplexNumber();
+//        ComplexNumber op1 = new ComplexNumber();
+//        ComplexNumber op2 = new ComplexNumber();
         while (true) {
-            usedViewer.showPrompt("Введите первый комплексный операнд: ");
-            try {
-                op1 =  usedViewer.getUserNumber();
-            } catch (Exception e) {
-                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
-                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
-            }
-            CONTROLLER_LOG.log(Level.INFO, String.format("Первый операнд равен " + op1 + "\n"));
-            usedViewer.showPrompt("Введите второй комплексный операнд: ");
-            try {
-                op2 = usedViewer.getUserNumber();
-            } catch (Exception e) {
-                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
-                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
-            }
-            CONTROLLER_LOG.log(Level.INFO, String.format("Второй операнд равен " + op2 + "\n"));
+//            usedViewer.showPrompt("Введите первый комплексный операнд: ");
+//            try {
+//                op1 =  usedViewer.getUserNumber();
+//            } catch (Exception e) {
+//                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+//                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+//            }
+//            CONTROLLER_LOG.log(Level.INFO, String.format("Первый операнд равен " + op1 + "\n"));
+//            usedViewer.showPrompt("Введите второй комплексный операнд: ");
+//            try {
+//                op2 = usedViewer.getUserNumber();
+//            } catch (Exception e) {
+//                CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+//                throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+//            }
+//            CONTROLLER_LOG.log(Level.INFO, String.format("Второй операнд равен " + op2 + "\n"));
             usedViewer.showPrompt("Введите операцию: +/-/*/:/Q(для выхода) ");
             Operation command = usedViewer.getOperation();
             ComplexNumber res;
             switch (command) {
                 case TO_ADD:
+                    getOperands();
                     res = calculator.plus(op1, op2);
                     usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_SUBTRACT:
+                    getOperands();
                     res = calculator.minus(op1, op2);
                     usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_MULTIPLY:
+                    getOperands();
                     res = calculator.multiply(op1, op2);
                     usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
 
                 case TO_DIVIDE:
+                    getOperands();
                     res = calculator.divide(op1, op2);
                     usedViewer.showResultOfOperation(op1, op2, command, res);
                     break;
@@ -77,5 +83,24 @@ public class Controller {
             }
         }
     }
+    private void getOperands() {
+        usedViewer.showPrompt("Введите первый комплексный операнд: ");
+        try {
+            op1 =  usedViewer.getUserNumber();
+        } catch (Exception e) {
+            CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+            throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+        }
+        CONTROLLER_LOG.log(Level.INFO, String.format("Первый операнд равен " + op1 + "\n"));
+        usedViewer.showPrompt("Введите второй комплексный операнд: ");
+        try {
+            op2 = usedViewer.getUserNumber();
+        } catch (Exception e) {
+            CONTROLLER_LOG.log(Level.INFO, "USER INPUT EXCEPTION: wrong input data format !!!\n");;
+            throw new RuntimeException("USER INPUT EXCEPTION: wrong input data format !!!\n");
+        }
+        CONTROLLER_LOG.log(Level.INFO, String.format("Второй операнд равен " + op2 + "\n"));
+    }
+
 }
 
