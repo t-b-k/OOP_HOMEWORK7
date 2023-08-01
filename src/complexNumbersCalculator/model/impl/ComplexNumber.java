@@ -1,11 +1,15 @@
 package complexNumbersCalculator.model.impl;
 
+import complexNumbersCalculator.logging.Log;
+import complexNumbersCalculator.view.Converter;
+
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class ComplexNumber {
-    private Double realPart;
-    private Double imagePart;
-//    public static final Logger LOG = Log.log(ComplexNumber.class.getName());
+    private final Double realPart;
+    private final Double imagePart;
+    private static final Logger COMPLEX_NUM_LOG = Log.log(Converter.class.getName());
 
     public ComplexNumber() {
         this.realPart = (double) 0;
@@ -52,22 +56,22 @@ public class ComplexNumber {
         if (imagePart.equals(1.0)) return String.format("%s + i", toString(realPart));
         if (imagePart.equals(-1.0)) return  String.format("%s - i", toString(realPart));
 
-            if (imagePart > 0) return String.format("%s + %s*i", toString(realPart), toString(imagePart));
-            else return String.format("%s - %s*i", toString(realPart), toString(imagePart).replace("-", ""));
+        if (imagePart > 0) return String.format("%s + %s*i", toString(realPart), toString(imagePart));
+        else return String.format("%s - %s*i", toString(realPart), toString(imagePart).replace("-", ""));
     }
     private String toString (Double num) {
-        System.out.printf("Вызываем toString для Double: %f\n", num);
+//        System.out.printf("Вызываем toString для Double: %f\n", num);
         Double temp = num;
         if (num < 0) temp = -temp;
         Double modInt = temp % 1;
-        System.out.printf("Дробная часть = %f", modInt);
+//        System.out.printf("Дробная часть = %f", modInt);
         Integer divInt = (int) (temp / 1);
-        System.out.printf("Целая часть = %d\n", divInt);
+//        System.out.printf("Целая часть = %d\n", divInt);
         if (temp.equals((double) divInt)) {
             if (num >= 0) return String.format("%d", divInt);
             else return String.format("%d", -divInt);
         } else {
-            System.out.printf("Преобразовали Double к строке: %s\n", num.toString());
+//            System.out.printf("Преобразовали Double к строке: %s\n", num.toString());
             return String.format("%.4f", num);
         }
     }
