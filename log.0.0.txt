@@ -20,3 +20,19 @@ INFO: ЗАПУСКАЕМ CONTROLLER:
 INFO: Читаем пользовательский ввод: 
 июл. 31, 2023 9:21:28 PM complexNumbersCalculator.view.Viewer getUserInput
 INFO: Читаем пользовательский ввод: 
+авг. 01, 2023 10:47:24 AM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ VIEWER: 
+авг. 01, 2023 10:47:24 AM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ КАЛЬКУЛЯТОР КОМПЛЕКСНЫХ ЧИСЕЛ: 
+авг. 01, 2023 10:47:24 AM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧАЕМ КОНВЕРТЕР: 
+авг. 01, 2023 10:47:24 AM complexNumbersCalculator.Main main
+INFO: ЗАПУСКАЕМ CONTROLLER: 
+авг. 01, 2023 10:47:24 AM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+авг. 01, 2023 10:47:34 AM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+авг. 01, 2023 10:47:42 AM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 
+авг. 01, 2023 10:47:50 AM complexNumbersCalculator.view.Viewer getUserInput
+INFO: Читаем пользовательский ввод: 

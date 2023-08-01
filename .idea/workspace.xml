@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="729c0d22-2387-4579-94f1-7219f9bdc492" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/log.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/controller/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/logging/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/model/Operations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/model/impl/ComplexNumber.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/model/impl/ComplexOperations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/util/Converter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/util/Operation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/view/Viewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/complexNumbersCalculator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/complexNumbersCalculator/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/complexNumbersCalculator/Model/ComplexNumber.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.0.0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.0.0.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/Татьяна Калашникова/CODE/JAVA/HOMEWORKS/src/homework2",
+    "last_opened_file_path": "C:/Users/Татьяна Калашникова/CODE/JAVA/OOP/OOP_HOMEWORK7",
     "settings.editor.selected.configurable": "File.Encoding"
   }
 }]]></component>
