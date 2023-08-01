@@ -944,3 +944,85 @@ INFO: Вещественная часть равна 4.857142857142857
 INFO: Мнимая часть равна 0.0
 авг. 01, 2023 4:20:21 PM complexNumbersCalculator.model.impl.ComplexOperations divide
 INFO: Результат равен 4,8571
+авг. 01, 2023 4:30:39 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧИЛИ VIEWER: 
+авг. 01, 2023 4:30:39 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧИЛИ CONTROLLER: 
+авг. 01, 2023 4:30:48 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧИЛИ VIEWER: 
+авг. 01, 2023 4:30:48 PM complexNumbersCalculator.Main main
+INFO: ПОДКЛЮЧИЛИ CONTROLLER: 
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: parsing complex number... !!!
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: trying to parse first double number ...
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter readDouble
+INFO: CONVERTER.readDouble: parsing double number... !!!
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter readInt
+INFO: CONVERTER.readInt: parsing integer number... !!!
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter readInt
+INFO: CONVERTER.readInt: have read33
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter readDouble
+INFO: CONVERTER.readDouble: have read33.0
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: have read the real part, continue analyzing the rest of user input...
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: real part goes first...
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: is there an mage part?...
+
+авг. 01, 2023 4:30:54 PM complexNumbersCalculator.controller.Controller getOperands
+INFO: Первый операнд равен 33
+
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: parsing complex number... !!!
+
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: ...checking if there is a second part of a number... 
+
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: user number is (i) or (-i) 
+
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.controller.Controller getOperands
+INFO: Второй операнд равен i
+
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.model.impl.ComplexOperations plus
+INFO: Метод plus (arg1, arg2) ...
+авг. 01, 2023 4:30:56 PM complexNumbersCalculator.model.impl.ComplexOperations plus
+INFO: Результат равен 33 + i
+авг. 01, 2023 4:31:03 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: parsing complex number... !!!
+
+авг. 01, 2023 4:31:03 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: ...checking if there is a second part of a number... 
+
+авг. 01, 2023 4:31:03 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: user number is (i) or (-i) 
+
+авг. 01, 2023 4:31:03 PM complexNumbersCalculator.controller.Controller getOperands
+INFO: Первый операнд равен -i
+
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: parsing complex number... !!!
+
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: ...checking if there is a second part of a number... 
+
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.view.Converter parseNumber
+INFO: CONVERTER.parseNumber: user number is (i) or (-i) 
+
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.controller.Controller getOperands
+INFO: Второй операнд равен i
+
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.model.impl.ComplexOperations plus
+INFO: Метод plus (arg1, arg2) ...
+авг. 01, 2023 4:31:05 PM complexNumbersCalculator.model.impl.ComplexOperations plus
+INFO: Результат равен 0
